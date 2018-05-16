@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.ContactController">
+    <headerText>
+        Fill in the new information for the new Contact
+    </headerText>
+    <content>
+        <GridPane vgap="10" hgap="10">
+            <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Last name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Phone number" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="phoneNumberField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Notes" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="notesField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+    </content>
+</DialogPane>
