@@ -28,9 +28,6 @@ public class Controller {
     private TableView<Contact> contactsTable;
 
     @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
     public void initialize() {
         data = new ContactData();
         data.loadContacts();
@@ -40,7 +37,7 @@ public class Controller {
 
     @FXML
     public void showAddContactDialog() throws SQLException {
-        Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+        Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainPanel.getScene().getWindow());
         dialog.setTitle("Add new contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -72,7 +69,7 @@ public class Controller {
             return;
         }
 
-        Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+        Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainPanel.getScene().getWindow());
         dialog.setTitle("Edit contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -84,7 +81,7 @@ public class Controller {
         if(result.isPresent() && result.get() == ButtonType.OK) {
             Connection connection = DriverManager.getConnection(CONNECTION_STRING);
             Statement statement = connection.createStatement();
-            contactController.updateContact(statement, selectedContact);
+            data.updateContact(statement, contactController, selectedContact);
             statement.close();
             connection.close();
         }

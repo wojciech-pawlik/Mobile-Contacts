@@ -32,10 +32,10 @@ public class ContactController {
         String phoneNumber = phoneNumberField.getText();
         String notes = notesField.getText();
 
-        Contact newContact = new Contact(id, firstName, lastName, phoneNumber, notes);
-        return newContact;
+        return new Contact(id, firstName, lastName, phoneNumber, notes);
     }
 
+    @FXML
     public void editContact(Contact contact) {
         firstNameField.setText(contact.getFirstName());
         lastNameField.setText(contact.getLastName());
@@ -43,19 +43,14 @@ public class ContactController {
         notesField.setText(contact.getNotes());
     }
 
-    public void updateContact(Statement statement, Contact contact) throws SQLException {
+    @FXML
+    public Contact updateContact(Statement statement, Contact contact) {
         contact.setFirstName(firstNameField.getText());
         contact.setLastName(lastNameField.getText());
         contact.setPhoneNumber(phoneNumberField.getText());
         contact.setNotes(notesField.getText());
 
-        statement.execute("UPDATE " + TABLE_CONTACTS + " SET " +
-                FIRST_NAME + " = '" + firstNameField.getText() + "', " +
-                LAST_NAME + " = '" + firstNameField.getText() + "', " +
-                PHONE_NUMBER + " = '" + firstNameField.getText() + "', " +
-                NOTES + " = '" + firstNameField.getText() +
-                "' WHERE " + _ID + " = " + contact.getId() + ";"
-                );
+        return contact;
     }
 
     public int firstFreeId(Statement statement) throws SQLException {
@@ -68,10 +63,5 @@ public class ContactController {
                 return index;
         }
         return ++index;
-    }
-
-    public int firstBusyId(Statement statement) throws SQLException {
-        ResultSet results = statement.executeQuery("SELECT " + _ID + " FROM " + TABLE_CONTACTS);
-        return results.getInt(_ID);
     }
 }

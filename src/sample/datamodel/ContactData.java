@@ -2,6 +2,7 @@ package sample.datamodel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.ContactController;
 
 import java.sql.*;
 
@@ -45,7 +46,7 @@ public class ContactData {
                     PHONE_NUMBER + " TEXT, " +
                     NOTES + " TEXT)");
 
-            ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CONTACTS);
+            ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CONTACTS + " ORDER BY " + _ID);
             while(results.next()) {
                 Contact contact = new Contact(results.getInt(_ID), results.getString(FIRST_NAME), results.getString(LAST_NAME),
                         results.getString(PHONE_NUMBER), results.getString(NOTES));
@@ -73,6 +74,20 @@ public class ContactData {
                 PHONE_NUMBER + ", " +
                 NOTES + ") " +
                 "VALUES (" + id + ", '" + firstName + "', '" + lastName + "', '" + phoneNumber + "', '" + notes + "')");
+    }
+
+    public void updateContact(Statement statement, ContactController contactController, Contact contact) throws SQLException {
+        contact = contactController.updateContact(statement, contact);
+
+        statement.execute("UPDATE " + TABLE_CONTACTS + " SET " +
+                FIRST_NAME + " = '" + contact.getFirstName() + "', " +
+                LAST_NAME + " = '" + contact.getLastName() + "', " +
+                PHONE_NUMBER + " = '" + contact.getPhoneNumber() + "', " +
+                NOTES + " = '" + contact.getNotes() +
+                "' WHERE " + _ID + " = " + contact.getId() + ";"
+        );
+
+        loadContacts();
     }
 
     public void deleteContact(Statement statement, Contact contact) throws SQLException {
