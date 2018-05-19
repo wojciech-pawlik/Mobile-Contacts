@@ -86,8 +86,8 @@ public class ContactData {
                 NOTES + " = '" + contact.getNotes() +
                 "' WHERE " + _ID + " = " + contact.getId() + ";"
         );
-
-        loadContacts();
+        contacts.remove(contact.getId());
+        contacts.set(contact.getId(), contact);
     }
 
     public void deleteContact(Statement statement, Contact contact) throws SQLException {

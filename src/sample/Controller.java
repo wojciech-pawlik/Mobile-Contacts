@@ -52,6 +52,8 @@ public class Controller {
             ContactController contactController = fxmlLoader.getController();
             Contact newContact = contactController.getNewContact(statement);
             data.addContact(statement, newContact);
+            contactsTable.getSelectionModel().select(newContact);
+            contactsTable.scrollTo(newContact);
             statement.close();
             connection.close();
         }
@@ -82,6 +84,7 @@ public class Controller {
             Connection connection = DriverManager.getConnection(CONNECTION_STRING);
             Statement statement = connection.createStatement();
             data.updateContact(statement, contactController, selectedContact);
+            contactsTable.getSelectionModel().select(selectedContact);
             statement.close();
             connection.close();
         }
